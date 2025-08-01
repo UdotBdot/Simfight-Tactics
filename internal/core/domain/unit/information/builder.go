@@ -4,8 +4,8 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/UdotBdot/simfight-tactics/internal/core/domain/traits"
 	"github.com/UdotBdot/simfight-tactics/internal/core/domain/unit/role"
+	"github.com/UdotBdot/simfight-tactics/internal/core/domain/unit/traits"
 	"github.com/UdotBdot/simfight-tactics/internal/core/domain/utils"
 )
 

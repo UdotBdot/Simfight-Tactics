@@ -4,8 +4,8 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/UdotBdot/simfight-tactics/internal/core/domain/traits"
 	"github.com/UdotBdot/simfight-tactics/internal/core/domain/unit/role"
+	"github.com/UdotBdot/simfight-tactics/internal/core/domain/unit/traits"
 	utils "github.com/UdotBdot/simfight-tactics/internal/core/domain/utils"
 	"github.com/google/uuid"
 )
@@ -53,8 +53,8 @@ func (f *Factory) Create(name string, cost int, traitsParam []traits.Trait, role
 		return nil, errors.Join(errs...)
 	}
 
-	uuid := uuid.New()
-	id := &uuid
+	u := uuid.New()
+	id := &u
 
 	return &Information{
 		Name:   name,

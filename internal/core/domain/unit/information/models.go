@@ -1,9 +1,9 @@
 package information
 
 import (
-	"github.com/UdotBdot/simfight-tactics/internal/core/domain/traits"
 	"github.com/UdotBdot/simfight-tactics/internal/core/domain/unit/role"
 	"github.com/UdotBdot/simfight-tactics/internal/core/domain/unit/statistic"
+	"github.com/UdotBdot/simfight-tactics/internal/core/domain/unit/traits"
 	utils "github.com/UdotBdot/simfight-tactics/internal/core/domain/utils"
 	"github.com/google/uuid"
 )
