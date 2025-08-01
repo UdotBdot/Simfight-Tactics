@@ -32,15 +32,21 @@ func getIntFromEnvOrDefault(envKey string, defaultVal int) int {
 
 // CreateValidatorRegistry creates a configured validator registry
 func (b *Builder) CreateValidatorRegistry() ValidatorRegistry {
+	const (
+		MinTraitsPerUnit = 1
+		MaxTraitsPerUnit = 3
+		RoleLimit        = 1
+	)
+
 	nameValidator := NewNameValidator()
 	unitMinCost := getIntFromEnvOrDefault("MIN_UNIT_COST", utils.MinUnitCost)
 	unitMaxCost := getIntFromEnvOrDefault("MAX_UNIT_COST", utils.MaxUnitCost)
 	costValidator := NewCostValidator(unitMinCost, unitMaxCost)
 	traitsSetValidator := utils.NewSetValidator(traits.Traits)
 	rolesSetValidator := utils.NewSetValidator(role.Roles)
-	traitsMin := getIntFromEnvOrDefault("MIN_TRAITS_PER_UNIT", traits.MinTraitsPerUnit)
-	traitsMax := getIntFromEnvOrDefault("MAX_TRAITS_PER_UNIT", traits.MaxTraitsPerUnit)
-	rolesLimit := getIntFromEnvOrDefault("ROLE_LIMIT", role.RoleLimit)
+	traitsMin := getIntFromEnvOrDefault("MIN_TRAITS_PER_UNIT", MinTraitsPerUnit)
+	traitsMax := getIntFromEnvOrDefault("MAX_TRAITS_PER_UNIT", MaxTraitsPerUnit)
+	rolesLimit := getIntFromEnvOrDefault("ROLE_LIMIT", RoleLimit)
 	traitsConstraints := utils.LengthConstraints{Min: traitsMin, Max: traitsMax}
 	rolesConstraints := utils.LengthConstraints{Min: rolesLimit, Max: rolesLimit}
 

@@ -2,6 +2,11 @@
 // Specialist Role not handled due to different behavior.
 package role
 
+// backup for .env value
+const (
+	RoleLimit = 1
+)
+
 // Constants defines the behavioral parameters for a unit role
 type Constants struct {
 	ManaPerAttack  float64

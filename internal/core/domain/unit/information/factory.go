@@ -3,7 +3,6 @@ package information
 import (
 	"errors"
 	"fmt"
-	"log"
 
 	"github.com/UdotBdot/simfight-tactics/internal/core/domain/traits"
 	"github.com/UdotBdot/simfight-tactics/internal/core/domain/unit/role"
@@ -31,26 +30,22 @@ func (f *Factory) Create(name string, cost int, traitsParam []traits.Trait, role
 	var errs []error
 
 	if err := f.registry.ValidateName(name); err != nil {
-		log.Printf("Validation error for name '%s': %v", name, err)
 		errs = append(errs, fmt.Errorf("invalid name: %w", err))
 	}
 
 	if err := f.registry.ValidateCost(cost); err != nil {
-		log.Printf("Validation error for cost %d: %v", cost, err)
 		errs = append(errs, fmt.Errorf("invalid cost: %w", err))
 	}
 
 	cleanedTraits := utils.CleanSlice(traitsParam)
 	validatedTraits, err := utils.ConvertSliceToProperties(cleanedTraits, f.registry.TraitsSetValidator(), f.registry.TraitsConstraints(), "traits")
 	if err != nil {
-		log.Printf("Validation error for traits %v: %v", traitsParam, err)
 		errs = append(errs, fmt.Errorf("invalid traits: %w", err))
 	}
 
 	cleanedRoles := utils.CleanSlice(rolesParam)
 	validatedRoles, err := utils.ConvertSliceToProperties(cleanedRoles, f.registry.RolesSetValidator(), f.registry.RolesConstraints(), "roles")
 	if err != nil {
-		log.Printf("Validation error for roles %v: %v", rolesParam, err)
 		errs = append(errs, fmt.Errorf("invalid roles: %w", err))
 	}
 
@@ -58,8 +53,8 @@ func (f *Factory) Create(name string, cost int, traitsParam []traits.Trait, role
 		return nil, errors.Join(errs...)
 	}
 
-	var id *uuid.UUID // Optional; set to nil by default
-	// If persistence needed, generate: id = uuidPtr(uuid.New())
+	uuid := uuid.New()
+	id := &uuid
 
 	return &Information{
 		Name:   name,
@@ -69,13 +64,3 @@ func (f *Factory) Create(name string, cost int, traitsParam []traits.Trait, role
 		Roles:  validatedRoles,
 	}, nil
 }
-
-// e.g:
-// id := uuid.New()
-// info.ID = uuidPtr(id)
-// // Convert uuid.UUID in *uuid.UUID
-
-// uuidPtr helper for pointer
-// func uuidPtr(u uuid.UUID) *uuid.UUID {
-// 	return &u
-// }
